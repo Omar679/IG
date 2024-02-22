@@ -12,10 +12,10 @@ export interface IPost {
 }
 
 export interface IUser {
-  id: number;
+  id: string;
   username: string;
   image?: string;
-  name: string;
+  // name: string;
   bio?: string;
   post?: IPost;
   website?: string;

@@ -1,5 +1,6 @@
 import {Image, Text, View} from 'react-native';
 import React from 'react';
+import {useState} from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -8,12 +9,19 @@ import color from '../../themes/colors';
 import styles from './styles';
 import Comments from '../Comments';
 import {IPost} from '../../types/models';
+import {Pressable} from 'react-native';
+import DoublePressable from '../DoublePressable';
 
 interface IFeedPost {
   post: IPost;
 }
 
 const FeedPost = ({post}: IFeedPost) => {
+  const [isDescriptionExpanded, setisDescriptionExpanded] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const toggleText = () => setisDescriptionExpanded(v => !v);
+  const toggleLike = () => setIsLiked(v => !v);
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -34,21 +42,25 @@ const FeedPost = ({post}: IFeedPost) => {
       </View>
       {/* content */}
 
-      <Image
-        style={styles.image}
-        source={{
-          uri: post.image,
-        }}
-      />
+      <DoublePressable onDoublePress={toggleLike}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: post.image,
+          }}
+        />
+      </DoublePressable>
       {/* footer */}
       <View style={styles.footer}>
         <View style={styles.iconContainer}>
-          <AntDesign
-            style={styles.icon}
-            color={color.black}
-            size={24}
-            name="hearto"
-          />
+          <Pressable onPress={toggleLike}>
+            <AntDesign
+              style={styles.icon}
+              color={isLiked ? color.accent : color.black}
+              size={24}
+              name={isLiked ? 'heart' : 'hearto'}
+            />
+          </Pressable>
           <Ionicons
             style={styles.icon}
             color={color.black}
@@ -79,10 +91,16 @@ const FeedPost = ({post}: IFeedPost) => {
         </View>
         {/* description */}
         <View>
-          <Text style={styles.text}>
+          <Text
+            style={styles.text}
+            numberOfLines={isDescriptionExpanded ? 0 : 2}>
             {' '}
             <Text style={styles.bold}>{post.user.username}</Text>{' '}
             {post.description}
+          </Text>
+          <Text onPress={toggleText}>
+            {' '}
+            {isDescriptionExpanded ? 'See Less' : 'See More'}
           </Text>
         </View>
 
