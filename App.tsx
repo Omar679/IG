@@ -1,14 +1,13 @@
 import React from 'react';
 
-import FeedPost from './src/components/FeedPost/FeedPost';
-import {ScrollView, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import HomeScreen from './src/screens/HomeScreen/Homescreen';
 
 const App = () => {
   return (
-    <ScrollView style={styles.container}>
-      <FeedPost />
-      <FeedPost />
-    </ScrollView>
+    <View style={styles.container}>
+      <HomeScreen />
+    </View>
   );
 };
 
