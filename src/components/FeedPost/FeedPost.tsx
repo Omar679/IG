@@ -11,6 +11,8 @@ import Comments from '../Comments';
 import {IPost} from '../../types/models';
 import {Pressable} from 'react-native';
 import DoublePressable from '../DoublePressable';
+import Carousel from '../Carousel';
+import VidoePlayer from '../VidoePlayer';
 
 interface IFeedPost {
   post: IPost;
@@ -21,6 +23,29 @@ const FeedPost = ({post}: IFeedPost) => {
   const [isLiked, setIsLiked] = useState(false);
   const toggleText = () => setisDescriptionExpanded(v => !v);
   const toggleLike = () => setIsLiked(v => !v);
+
+  let content = null;
+
+  if (post.image) {
+    content = (
+      <DoublePressable onDoublePress={toggleLike}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: post.image,
+          }}
+        />
+      </DoublePressable>
+    );
+  } else if (post.images) {
+    content = <Carousel images={post.images} onDoublePressable={toggleLike} />;
+  } else if (post.video) {
+    content = (
+      <DoublePressable onDoublePress={toggleLike}>
+        <VidoePlayer uri={post.video} />
+      </DoublePressable>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -42,14 +67,7 @@ const FeedPost = ({post}: IFeedPost) => {
       </View>
       {/* content */}
 
-      <DoublePressable onDoublePress={toggleLike}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: post.image,
-          }}
-        />
-      </DoublePressable>
+      {content}
       {/* footer */}
       <View style={styles.footer}>
         <View style={styles.iconContainer}>
