@@ -16,9 +16,10 @@ import VidoePlayer from '../VidoePlayer';
 
 interface IFeedPost {
   post: IPost;
+  isVisible: boolean;
 }
 
-const FeedPost = ({post}: IFeedPost) => {
+const FeedPost = ({post, isVisible}: IFeedPost) => {
   const [isDescriptionExpanded, setisDescriptionExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const toggleText = () => setisDescriptionExpanded(v => !v);
@@ -42,7 +43,7 @@ const FeedPost = ({post}: IFeedPost) => {
   } else if (post.video) {
     content = (
       <DoublePressable onDoublePress={toggleLike}>
-        <VidoePlayer uri={post.video} />
+        <VidoePlayer uri={post.video} paused={!isVisible} />
       </DoublePressable>
     );
   }
