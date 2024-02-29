@@ -5,5 +5,7 @@ const color = {
   grey: '#666666',
   lightgrey: '#cccccc',
   accent: '#ed4956',
+  border: '#dcdcdc',
+  warning: '#ed4956',
 };
 export default color;

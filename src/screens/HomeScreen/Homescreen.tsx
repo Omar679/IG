@@ -14,6 +14,7 @@ const HomeScreen = () => {
       }
     },
   );
+
   const viewabilityConfig: ViewabilityConfig = {
     itemVisiblePercentThreshold: 51,
   };
