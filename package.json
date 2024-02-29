@@ -10,6 +10,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "expo": "^50.0.0",
+    "expo-camera": "^14.0.5",
     "react": "18.2.0",
     "react-hook-form": "^7.50.1",
     "react-native": "0.73.4",
