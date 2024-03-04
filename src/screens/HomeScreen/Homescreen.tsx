@@ -4,7 +4,7 @@ import {FlatList, ViewToken, ViewabilityConfig} from 'react-native';
 import posts from '../../assets/data/posts.json';
 import FeedPost from '../../components/FeedPost';
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
   const [activePostId, setActivePostId] = useState<string | null>(null);
 
   const onViewableItemsChanged = useRef(
