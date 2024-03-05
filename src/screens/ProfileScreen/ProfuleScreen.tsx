@@ -17,7 +17,7 @@ const ProfuleScreen = () => {
   >();
   const userId = route.params?.userId;
 
-  console.log('userId', userId);
+  console.warn('userId', userId);
 
   //Query user with userId
 
