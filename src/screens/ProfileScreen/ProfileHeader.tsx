@@ -4,9 +4,12 @@ import user from '../../assets/data/user.json';
 import {size, weight} from '../../themes/fonts';
 import color from '../../themes/colors';
 import Button from '../../components/Button/Button';
+import {useNavigation} from '@react-navigation/native';
+import {ProfileNavigationProp} from '../../navigation/types';
 // import FeedPost from '../../components/FeedPost';
 
 const ProfileHeader = () => {
+  const navigation = useNavigation<ProfileNavigationProp>();
   return (
     <View style={styles.root}>
       <View style={styles.headerRow}>
@@ -30,7 +33,10 @@ const ProfileHeader = () => {
 
       {/* Button */}
       <View style={{flexDirection: 'row'}}>
-        <Button text="Edit Profile" onPress={() => console.warn('First')} />
+        <Button
+          text="Edit Profile"
+          onPress={() => navigation.navigate('Edit Profile')}
+        />
         <Button text="Another Button" onPress={() => console.warn('Second')} />
       </View>
     </View>
