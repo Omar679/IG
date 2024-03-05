@@ -17,6 +17,8 @@ const ProfuleScreen = () => {
   >();
   const userId = route.params?.userId;
 
+  console.log('userId', userId);
+
   //Query user with userId
 
   return <FeedGridView data={user.posts} ListHeaderComponent={ProfileHeader} />;
