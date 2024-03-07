@@ -6,10 +6,13 @@ import color from '../../themes/colors';
 import Button from '../../components/Button/Button';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileNavigationProp} from '../../navigation/types';
+import {useAuthenticator} from '@aws-amplify/ui-react-native';
 // import FeedPost from '../../components/FeedPost';
 
 const ProfileHeader = () => {
   const navigation = useNavigation<ProfileNavigationProp>();
+  const {signOut} = useAuthenticator();
+
   return (
     <View style={styles.root}>
       <View style={styles.headerRow}>
@@ -37,7 +40,7 @@ const ProfileHeader = () => {
           text="Edit Profile"
           onPress={() => navigation.navigate('Edit Profile')}
         />
-        <Button text="Another Button" onPress={() => console.warn('Second')} />
+        <Button text="Another Button" onPress={signOut} />
       </View>
     </View>
   );
