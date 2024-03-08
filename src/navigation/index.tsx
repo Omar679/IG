@@ -8,6 +8,8 @@ import BottomTabs from './BottomTabs';
 import CommentsScreen from '../screens/CommentsScreen';
 
 import {RootNavigator, RootNavigatorParamList} from './types';
+import AuthStackNavigator from './AuthStackNavigator';
+import HomeScreen from '../screens/HomeScreen/Homescreen';
 
 const Stack = createNativeStackNavigator<RootNavigator>();
 
@@ -36,10 +38,11 @@ const Navigation = () => {
     <NavigationContainer linking={linking}>
       <Stack.Navigator screenOptions={{headerShown: true}}>
         <Stack.Screen
-          name="Home"
-          component={BottomTabs}
+          name="Auth"
+          component={AuthStackNavigator}
           options={{headerShown: false}}
         />
+        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Comments" component={CommentsScreen} />
       </Stack.Navigator>
     </NavigationContainer>

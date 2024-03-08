@@ -1,5 +1,4 @@
 import React from 'react';
-import {withAuthenticator} from '@aws-amplify/ui-react-native';
 import {StyleSheet, View} from 'react-native';
 import Navigation from './src/navigation';
 import {Amplify} from 'aws-amplify';
@@ -15,27 +14,7 @@ const App = () => {
   );
 };
 
-export default withAuthenticator(App, {
-  signUpAttributes: [
-    'address',
-    'birthdate',
-    'email',
-    'family_name',
-    'gender',
-    'given_name',
-    'locale',
-    'middle_name',
-    'name',
-    'nickname',
-    'phone_number',
-    'picture',
-    'preferred_username',
-    'profile',
-    'updated_at',
-    'website',
-    'zoneinfo',
-  ],
-});
+export default App;
 
 const styles = StyleSheet.create({
   container: {

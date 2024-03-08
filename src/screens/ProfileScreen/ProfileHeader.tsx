@@ -5,7 +5,7 @@ import {size, weight} from '../../themes/fonts';
 import color from '../../themes/colors';
 import Button from '../../components/Button/Button';
 import {useNavigation} from '@react-navigation/native';
-import {ProfileNavigationProp} from '../../navigation/types';
+import {ProfileNavigationProp} from '../../types/types';
 import {useAuthenticator} from '@aws-amplify/ui-react-native';
 // import FeedPost from '../../components/FeedPost';
 

@@ -14,7 +14,7 @@ import {Pressable} from 'react-native';
 import DoublePressable from '../DoublePressable';
 import Carousel from '../Carousel';
 import VidoePlayer from '../VidoePlayer';
-import {FeedNavigationProp} from '../../navigation/types';
+import {FeedNavigationProp} from '../../types/navigation';
 
 interface IFeedPost {
   post: IPost;
@@ -50,7 +50,7 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
       </DoublePressable>
     );
   }
- 
+
   const navigateToUser = () => {
     navigation.navigate('UserProfile', {userId: post.user.id});
   };

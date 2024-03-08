@@ -5,7 +5,7 @@ import {
   MyProfileNavigationProp,
   MyProfileRouteProp,
   UserProfileRouteProp,
-} from '../../navigation/types';
+} from '../../types/types';
 import ProfileHeader from './ProfileHeader';
 import FeedGridView from '../../components/FeedGridView/FeedGridView';
 import {useNavigation, useRoute} from '@react-navigation/native';
