@@ -1,17 +1,11 @@
 import {LinkingOptions, NavigationContainer} from '@react-navigation/native';
-// import HomeScreen from '../screens/HomeScreen/Homescreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-// import ProfileScreen from '../screens/ProfileScreen';
-
-// import ProfileScreen from '../screens/ProfileScreen';
-import BottomTabs from './BottomTabs';
 import CommentsScreen from '../screens/CommentsScreen';
-
-import {RootNavigator, RootNavigatorParamList} from './types';
+import {RootNavigatorParamList} from '../types/navigation';
 import AuthStackNavigator from './AuthStackNavigator';
 import HomeScreen from '../screens/HomeScreen/Homescreen';
 
-const Stack = createNativeStackNavigator<RootNavigator>();
+const Stack = createNativeStackNavigator<RootNavigatorParamList>();
 
 const linking: LinkingOptions<RootNavigatorParamList> = {
   prefixes: ['ig://', 'https://ig.com'],

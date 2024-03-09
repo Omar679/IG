@@ -5,7 +5,6 @@ import CustomButton from '../components/CustomButton';
 import {useNavigation} from '@react-navigation/core';
 import {useForm} from 'react-hook-form';
 import {ForgotPasswordNavigationProp} from '../../../types/navigation';
-import {Auth} from 'aws-amplify';
 
 type ForgotPasswordData = {
   email: string;
@@ -23,12 +22,13 @@ const ForgotPasswordScreen = () => {
     setLoading(true);
 
     try {
-      const response = await Auth.forgotPassword(email);
-      Alert.alert(
-        'Check your email',
-        `The code has been sent to ${response.CodeDeliveryDetails.Destination}`,
-      );
-      navigation.navigate('New password');
+      const response = await resetPassword({username: email});
+      // Alert.alert(
+      //   'Check your email',
+      //   `The code has been sent to ${response.CodeDeliveryDetails.Destination}`,
+      // );
+      // navigation.navigate('New password');
+      console.log(response);
     } catch (e) {
       Alert.alert('Oops', (e as Error).message);
     } finally {

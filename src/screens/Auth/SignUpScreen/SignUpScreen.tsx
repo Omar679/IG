@@ -6,6 +6,8 @@ import {useNavigation} from '@react-navigation/core';
 import {useForm} from 'react-hook-form';
 import {SignUpNavigationProp} from '../../../types/navigation';
 import color from '../../../themes/colors';
+import {signUp} from 'aws-amplify/auth';
+import {useState} from 'react';
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -18,11 +20,40 @@ type SignUpData = {
 };
 
 const SignUpScreen = () => {
+  const [loading, setLoading] = useState(false);
   const {control, handleSubmit, watch} = useForm<SignUpData>();
   const pwd = watch('password');
   const navigation = useNavigation<SignUpNavigationProp>();
 
-  const onRegisterPressed = () => {};
+  const onRegisterPressed = async ({email, password, name}: SignUpData) => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await signUp({
+        username: email,
+        password,
+        options: {
+          userAttributes: {
+            name,
+            email,
+          },
+          // optional
+          autoSignIn: true, // or SignInOptions e.g { authFlowType: "USER_SRP_AUTH" }
+        },
+      });
+      console.log(response);
+      navigation.navigate('Confirm email', {email});
+    } catch (e) {
+      if ((e as Error).name === 'UserNotConfirmedException') {
+        navigation.navigate('Confirm email', {email});
+      }
+      console.warn((e as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const onSignInPress = () => {
     navigation.navigate('Sign in');

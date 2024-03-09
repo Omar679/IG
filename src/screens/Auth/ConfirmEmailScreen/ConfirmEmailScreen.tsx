@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
 import FormInput from '../components/FormInput';
 import CustomButton from '../components/CustomButton';
-import SocialSignInButtons from '../components/SocialSignInButtons';
+// import SocialSignInButtons from '../components/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/core';
 import {useForm} from 'react-hook-form';
 import {
@@ -10,7 +10,8 @@ import {
   ConfirmEmailRouteProp,
 } from '../../../types/navigation';
 import {useRoute} from '@react-navigation/native';
-import {Auth} from 'aws-amplify';
+import {confirmSignUp} from 'aws-amplify/auth';
+import {resendSignUpCode} from 'aws-amplify/auth';
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -38,7 +39,10 @@ const ConfirmEmailScreen = () => {
     setLoading(true);
 
     try {
-      await Auth.confirmSignUp(email, code);
+      await confirmSignUp({
+        username: email,
+        confirmationCode: code,
+      });
       navigation.navigate('Sign in');
     } catch (e) {
       Alert.alert('Oops', (e as Error).message);
@@ -53,7 +57,7 @@ const ConfirmEmailScreen = () => {
 
   const onResendPress = async () => {
     try {
-      await Auth.resendSignUp(email);
+      await resendSignUpCode({username: email});
       Alert.alert('Check your email', 'The code has been sent');
     } catch (e) {
       Alert.alert('Oops', (e as Error).message);

@@ -13,16 +13,8 @@ import SocialSignInButtons from '../components/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
 import {SignInNavigationProp} from '../../../types/navigation';
-import {signIn, signOut, type SignInInput} from 'aws-amplify/auth';
-
-const handleSignIn = async ({username, password}: SignInInput) => {
-  try {
-    const response = await signIn({username: username, password});
-    console.warn(response);
-  } catch (e) {
-    Alert.alert('Ooops', (e as any).message);
-  }
-};
+import {signIn, type SignInInput} from 'aws-amplify/auth';
+import {useState} from 'react';
 
 type SignInData = {
   email: string;
@@ -30,10 +22,29 @@ type SignInData = {
 };
 
 const SignInScreen = () => {
+  const [loading, setloading] = useState(false);
   const {height} = useWindowDimensions();
   const navigation = useNavigation<SignInNavigationProp>();
 
-  const {control, handleSubmit} = useForm<SignInData>();
+  const {control, handleSubmit, reset} = useForm<SignInData>();
+
+  const handleSignIn = async ({username, password}: SignInInput) => {
+    if (loading) {
+      return;
+    }
+    setloading(true);
+    try {
+      const {isSignedIn, nextStep} = await signIn({username, password});
+
+      // Save User data in context
+    } catch (e) {
+      Alert.alert('Ooops', (e as any).message);
+      // console.warn(navigation.replace('Home'));
+    } finally {
+      setloading(false);
+      reset();
+    }
+  };
 
   // const onSignInPressed = () => {};
 
@@ -83,7 +94,10 @@ const SignInScreen = () => {
           }}
         />
 
-        <CustomButton text="Sign In" onPress={handleSubmit(handleSignIn)} />
+        <CustomButton
+          text={loading ? 'Loading...' : 'Sign In'}
+          onPress={handleSubmit(handleSignIn)}
+        />
 
         <CustomButton
           text="Forgot password?"
