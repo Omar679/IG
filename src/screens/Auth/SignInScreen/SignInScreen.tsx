@@ -15,6 +15,7 @@ import {useForm} from 'react-hook-form';
 import {SignInNavigationProp} from '../../../types/navigation';
 import {signIn, type SignInInput} from 'aws-amplify/auth';
 import {useState} from 'react';
+import {useAuthContext} from '../../../contexts/AuthContext';
 
 type SignInData = {
   email: string;
@@ -22,10 +23,10 @@ type SignInData = {
 };
 
 const SignInScreen = () => {
+  const {setUser} = useAuthContext();
   const [loading, setloading] = useState(false);
   const {height} = useWindowDimensions();
   const navigation = useNavigation<SignInNavigationProp>();
-
   const {control, handleSubmit, reset} = useForm<SignInData>();
 
   const handleSignIn = async ({username, password}: SignInInput) => {
@@ -34,8 +35,8 @@ const SignInScreen = () => {
     }
     setloading(true);
     try {
-      const {isSignedIn, nextStep} = await signIn({username, password});
-
+      const {isSignedIn} = await signIn({username, password});
+      setUser(isSignedIn);
       // Save User data in context
     } catch (e) {
       Alert.alert('Ooops', (e as any).message);

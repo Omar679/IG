@@ -1,23 +1,18 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import Navigation from './src/navigation';
 import {Amplify} from 'aws-amplify';
 import awsExports from './src/aws-exports';
+import AuthContextProvider from './src/contexts/AuthContext';
 
 Amplify.configure(awsExports);
 
 const App = () => {
   return (
-    <View style={styles.container}>
+    <AuthContextProvider>
       <Navigation />
-    </View>
+    </AuthContextProvider>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

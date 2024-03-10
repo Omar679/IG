@@ -4,7 +4,7 @@ import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
 export type RootNavigatorParamList = {
   Home: undefined;
-  Comments: {postId: string};
+  Profile: {postId: string};
   Auth: undefined;
 };
 
